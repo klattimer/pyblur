@@ -8,13 +8,15 @@ import os.path
 pickledPsfFilename =os.path.join(os.path.dirname( __file__),"psf.pkl")
 
 with open(pickledPsfFilename, 'rb') as pklfile:
-    psfDictionary = pickle.load(pklfile)
+    psfDictionary = pickle.load(pklfile, encoding='latin1')
 
 
 def PsfBlur(img, psfid):
     imgarray = np.array(img, dtype="float32")
     kernel = psfDictionary[psfid]
-    convolved = convolve2d(imgarray, kernel, mode='same', fillvalue=255.0).astype("uint8")
+    convolved = np.zeros_like(imgarray, dtype = np.uint8)
+    for i in range(3):
+        convolved[:, :, i] = convolve2d(imgarray[:, :, i], kernel, mode='same', fillvalue=255.0).astype("uint8")
     img = Image.fromarray(convolved)
     return img
     

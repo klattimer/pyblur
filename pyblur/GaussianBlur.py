@@ -1,7 +1,7 @@
 import numpy as np
 from PIL import ImageFilter
 
-gaussianbandwidths = [x / 2.0 for x in range(3, 15)]
+gaussianbandwidths = [x / 2.0 for x in range(3, 11)]
 
 def GaussianBlur_random(img):
     gaussianidx = np.random.randint(0, len(gaussianbandwidths))

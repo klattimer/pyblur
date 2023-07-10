@@ -2,9 +2,9 @@
 import numpy as np
 from PIL import Image
 from scipy.signal import convolve2d
-from skimage.draw import circle
+from skimage.draw import disk
 
-defocusKernelDims = [x for x in range(9, 23, 2)]
+defocusKernelDims = [x for x in range(9, 17, 2)]
 
 def DefocusBlur_random(img):
     kernelidx = np.random.randint(0, len(defocusKernelDims))    
@@ -14,7 +14,9 @@ def DefocusBlur_random(img):
 def DefocusBlur(img, dim):
     imgarray = np.array(img, dtype="float32")
     kernel = DiskKernel(dim)
-    convolved = convolve2d(imgarray, kernel, mode='same', fillvalue=255.0).astype("uint8")
+    convolved = np.zeros_like(imgarray, dtype = np.uint8)
+    for i in range(3):
+        convolved[:, :, i] = convolve2d(imgarray[:, :, i], kernel, mode='same', fillvalue=255.0).astype("uint8")
     img = Image.fromarray(convolved)
     return img
 
@@ -23,9 +25,9 @@ def DiskKernel(dim):
     kernelwidth = dim
     kernel = np.zeros((kernelwidth, kernelwidth), dtype=np.float32)
     circleCenterCoord = dim / 2
-    circleRadius = circleCenterCoord +1
+    circleRadius = circleCenterCoord# +1
     
-    rr, cc = circle(circleCenterCoord, circleCenterCoord, circleRadius)
+    rr, cc = disk((circleCenterCoord, circleCenterCoord), circleRadius)
     kernel[rr,cc]=1
     
     if(dim == 3 or dim == 5):
