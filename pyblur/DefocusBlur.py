@@ -4,7 +4,7 @@ from PIL import Image
 from scipy.signal import convolve2d
 from skimage.draw import disk
 
-defocusKernelDims = [x for x in range(9, 17, 2)]
+defocusKernelDims = [x for x in range(9, 15, 2)]
 
 def DefocusBlur_random(img):
     kernelidx = np.random.randint(0, len(defocusKernelDims))    

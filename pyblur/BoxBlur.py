@@ -2,7 +2,7 @@ import numpy as np
 from PIL import Image
 from scipy.signal import convolve2d
 
-boxKernelDims = [x for x in range(9, 17, 2)]
+boxKernelDims = [x for x in range(9, 15, 2)]
 
 def BoxBlur_random(img):
     kernelidx = np.random.randint(0, len(boxKernelDims))    
