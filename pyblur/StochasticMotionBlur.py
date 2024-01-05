@@ -419,7 +419,7 @@ class Kernel(object):
 
 def StochasticMotionBlur(img, dim, intensity):
     kernel = Kernel(size = (dim, dim), intensity=intensity)
-    kernel.applyTo(img, keep_image_dim=True)
+    img = kernel.applyTo(img, keep_image_dim=True)
     return img
 
 
