@@ -16,12 +16,13 @@ from .StochasticMotionBlur_helpers import Kernel
 
 def StochasticMotionBlur_random(img: Image, 
                                 stochasticMotionBlurKernelDims: List[int] = [x for x in range(25, 35, 2)],
-                                intensity: Union[float, str] = "random", 
+                                intensity_min: float = 0.0, 
+                                intensity_max: float = 1.0, 
                                 **kwargs) -> Image:
-    assert intensity == "random" or (isinstance(intensity, (float, int)) and intensity >= 0.0 and intensity <= 1.0), f'intensity must be "random" or a float number in range [0, 1]'
-    if intensity == "random": 
-        intensity = random.uniform(0.0, 1.0)
-    intensity = float(intensity)
+    assert intensity_min >= 0.0, f'[ERROR] "intensity_min" must be equal or above 0.0'
+    assert intensity_max <= 1.0, f'[ERROR] "intensity_max" must be equal or below 1.0'
+    assert intensity_min <= intensity_max, f'[ERROR] "intensity_min" must be below "intensity_max"'
+    intensity = random.uniform(intensity_min, intensity_max)
     kernelidx = np.random.randint(0, len(stochasticMotionBlurKernelDims))
     kerneldim = stochasticMotionBlurKernelDims[kernelidx]
     return StochasticMotionBlur(img, kerneldim, intensity)

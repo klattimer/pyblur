@@ -1,6 +1,6 @@
 from PIL import Image
 from pyblur import *
 
-img = Image.open("img.jpg")
+img = Image.open("assets/test256.png").convert("RGB")
 blurred = RandomizedBlur(img)
-blurred.save("test.jpg")
+blurred.save("blurred_test.jpg")

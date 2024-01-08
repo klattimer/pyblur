@@ -25,7 +25,7 @@ blurFunctions = {
         "func": GaussianBlur_random,
         "prob": 1,
         "kwargs": {
-            "gaussianbandwidths": [x for x in range(9, 15, 2)]
+            "gaussianbandwidths": [x / 2.0 for x in range(3, 11)]
         }
     },
     "3": {
@@ -46,7 +46,8 @@ blurFunctions = {
         "prob": 3,
         "kwargs": {
             "stochasticMotionBlurKernelDims": [x for x in range(25, 35, 2)],
-            "intensity": "random" # "random" or a float number in range [0, 1]
+            "intensity_min": 0.0, # a float number in range [0.0, 1.0]
+            "intensity_max": 1.0  # a float number in range [0.0, 1.0]
         }
     },
 }
@@ -59,4 +60,5 @@ def RandomizedBlur(img):
     blurToApply = blurFunctions[str(selected_func)]
     blurFunc = blurToApply["func"]
     kwargs = blurToApply["kwargs"]
+    print(blurFunc)
     return blurFunc(img, **kwargs)
