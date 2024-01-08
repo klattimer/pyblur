@@ -1,5 +1,7 @@
+from typing import Union, List
+
 class LineDictionary:
-    def __init__(self, lst_kernel_size = None):
+    def __init__(self, lst_kernel_size: Union[List[int], None] = None) -> None:
         self.lines = {}
         self.Create3x3Lines()
         self.Create5x5Lines()
@@ -11,7 +13,7 @@ class LineDictionary:
                     self.createNxNLines(kernel_size)
         return
     
-    def Create3x3Lines(self):
+    def Create3x3Lines(self) -> None:
         lines = {}
         lines[0] = [1,0,1,2]
         lines[45] = [2,0,0,2]
@@ -20,7 +22,7 @@ class LineDictionary:
         self.lines[3] = lines
         return
     
-    def Create5x5Lines(self):
+    def Create5x5Lines(self) -> None:
         lines = {}        
         lines[0] = [2,0,2,4]
         lines[22.5] = [3,0,1,4]
@@ -33,7 +35,7 @@ class LineDictionary:
         self.lines[5] = lines
         return
         
-    def Create7x7Lines(self):
+    def Create7x7Lines(self) -> None:
         lines = {}
         lines[0] = [3,0,3,6]
         lines[15] = [4,0,2,6]
@@ -50,7 +52,7 @@ class LineDictionary:
         self.lines[7] = lines 
         return
     
-    def Create9x9Lines(self):
+    def Create9x9Lines(self) -> None:
         lines = {}
         lines[0] = [4,0,4,8]
         lines[11.25] = [5,0,3,8]
@@ -71,7 +73,7 @@ class LineDictionary:
         self.lines[9] = lines
         return
 
-    def createNxNLines(self,n):
+    def createNxNLines(self, n: int) -> None:
         lines={}
         assert (n-1)%2==0,"n must be a odd number!!!"
         Num=2*n-2

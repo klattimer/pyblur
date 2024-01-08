@@ -1,13 +1,15 @@
+from typing import List
 import numpy as np
 from PIL import ImageFilter
+from PIL import Image
 
-gaussianbandwidths = [x / 2.0 for x in range(3, 11)]
-
-def GaussianBlur_random(img):
+def GaussianBlur_random(img: Image, 
+                        gaussianbandwidths: List[float] = [x / 2.0 for x in range(3, 11)], 
+                        **kwargs) -> Image:
     gaussianidx = np.random.randint(0, len(gaussianbandwidths))
     gaussianbandwidth = gaussianbandwidths[gaussianidx]
     return GaussianBlur(img, gaussianbandwidth)
 
-def GaussianBlur(img, bandwidth):
+def GaussianBlur(img: Image, bandwidth: float) -> Image:
     img = img.filter(ImageFilter.GaussianBlur(bandwidth))
     return img

@@ -1,15 +1,18 @@
+from typing import List
 import numpy as np
 from PIL import Image
 from scipy.signal import convolve2d
 
-boxKernelDims = [x for x in range(9, 15, 2)]
 
-def BoxBlur_random(img):
+def BoxBlur_random(img: Image, 
+                   boxKernelDims: List[int] = [x for x in range(7, 13, 2)], 
+                   **kwargs) -> Image:
     kernelidx = np.random.randint(0, len(boxKernelDims))    
     kerneldim = boxKernelDims[kernelidx]
     return BoxBlur(img, kerneldim)
 
-def BoxBlur(img, dim):
+
+def BoxBlur(img: Image, dim: int) -> Image:
     imgarray = np.array(img, dtype="float32")
     kernel = BoxKernel(dim)
     convolved = np.zeros_like(imgarray, dtype = np.uint8)
@@ -18,7 +21,8 @@ def BoxBlur(img, dim):
     img = Image.fromarray(convolved)
     return img
 
-def BoxKernel(dim):
+
+def BoxKernel(dim: int) -> np.ndarray:
     kernelwidth = dim
     kernel = np.ones((kernelwidth, kernelwidth), dtype=np.float32)        
     normalizationFactor = np.count_nonzero(kernel)

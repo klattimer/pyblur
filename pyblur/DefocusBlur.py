@@ -1,17 +1,19 @@
-# -*- coding: utf-8 -*-
+from typing import List
 import numpy as np
 from PIL import Image
 from scipy.signal import convolve2d
 from skimage.draw import disk
 
-defocusKernelDims = [x for x in range(9, 15, 2)]
 
-def DefocusBlur_random(img):
-    kernelidx = np.random.randint(0, len(defocusKernelDims))    
+def DefocusBlur_random(img: Image, 
+                       defocusKernelDims: List[int] = [x for x in range(9, 15, 2)], 
+                       **kwargs) -> Image:
+    kernelidx = np.random.randint(0, len(defocusKernelDims))
     kerneldim = defocusKernelDims[kernelidx]
     return DefocusBlur(img, kerneldim)
 
-def DefocusBlur(img, dim):
+
+def DefocusBlur(img: Image, dim: int) -> Image:
     imgarray = np.array(img, dtype="float32")
     kernel = DiskKernel(dim)
     convolved = np.zeros_like(imgarray, dtype = np.uint8)
@@ -21,7 +23,7 @@ def DefocusBlur(img, dim):
     return img
 
 
-def DiskKernel(dim):
+def DiskKernel(dim: int) -> np.ndarray:
     kernelwidth = dim
     kernel = np.zeros((kernelwidth, kernelwidth), dtype=np.float32)
     circleCenterCoord = dim / 2
@@ -37,7 +39,8 @@ def DiskKernel(dim):
     kernel = kernel / normalizationFactor
     return kernel
 
-def Adjust(kernel, kernelwidth):
+
+def Adjust(kernel: np.ndarray, kernelwidth: int) -> np.ndarray:
     kernel[0,0] = 0
     kernel[0,kernelwidth-1]=0
     kernel[kernelwidth-1,0]=0
