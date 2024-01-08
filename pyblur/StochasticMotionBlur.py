@@ -1,14 +1,9 @@
 """
 Source: https://github.com/LeviBorodenko/motionblur/blob/master/motionblur.py
 """
-from typing import Union, List
+from typing import List
 
-import numpy as np
-from PIL import Image, ImageDraw, ImageFilter
-from numpy.random import uniform, triangular, beta
-from math import pi
-from pathlib import Path
-from scipy.signal import convolve
+from PIL import Image
 import random
 
 from .StochasticMotionBlur_helpers import Kernel
