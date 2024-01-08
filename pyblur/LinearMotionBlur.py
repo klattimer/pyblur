@@ -1,3 +1,4 @@
+import random
 from typing import List
 import math
 import numpy as np
@@ -12,8 +13,8 @@ def LinearMotionBlur_random(img: Image,
                             lineLengths: List[int] = [x for x in range(9, 25, 2)], 
                             lineTypes: List[str] = ["full", "right", "left"], 
                             **kwargs) -> Image:
-    lineLengthIdx = np.random.randint(0, len(lineLengths))
-    lineTypeIdx = np.random.randint(0, len(lineTypes)) 
+    lineLengthIdx = random.randint(0, len(lineLengths))
+    lineTypeIdx = random.randint(0, len(lineTypes)) 
     lineLength = lineLengths[lineLengthIdx]
     lineType = lineTypes[lineTypeIdx]
     lineAngle = randomAngle(lineLength)
@@ -67,5 +68,5 @@ def randomAngle(kerneldim: int) -> int:
     kernelCenter = int(math.floor(kerneldim/2))
     numDistinctLines = kernelCenter * 4
     validLineAngles = np.linspace(0,180, numDistinctLines, endpoint = False)
-    angleIdx = np.random.randint(0, len(validLineAngles))
+    angleIdx = random.randint(0, len(validLineAngles))
     return int(validLineAngles[angleIdx])

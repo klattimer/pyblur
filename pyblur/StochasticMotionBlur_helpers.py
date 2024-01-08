@@ -4,13 +4,13 @@ Source: https://github.com/LeviBorodenko/motionblur/blob/master/motionblur.py
 
 import numpy as np
 from PIL import Image, ImageDraw, ImageFilter
-from numpy.random import uniform, triangular, beta
+from random import uniform
+from random import triangular
+from random import betavariate as beta
 from math import pi
 from pathlib import Path
 from scipy.signal import convolve
 import random
-
-stochasticMotionBlurKernelDims = [x for x in range(25, 35, 2)]
 
 # tiny error used for nummerical stability
 eps = 0.1
@@ -146,7 +146,7 @@ class Kernel(object):
 
             # getting max length of blur motion
             self.MAX_PATH_LEN = 0.75 * self.DIAGONAL * \
-                (uniform() + uniform(0, self.INTENSITY**2))
+                (uniform(0, 1) + uniform(0, self.INTENSITY**2))
 
             # getting step
             steps = []
@@ -184,7 +184,7 @@ class Kernel(object):
             self.JITTER = beta(2, 20)
 
             # initialising angles (and sign of angle)
-            angles = [uniform(low=-self.MAX_ANGLE, high=self.MAX_ANGLE)]
+            angles = [uniform(-self.MAX_ANGLE, self.MAX_ANGLE)]
 
             while len(angles) < self.NUM_STEPS:
 
@@ -193,7 +193,7 @@ class Kernel(object):
                                    self.MAX_ANGLE, self.MAX_ANGLE + eps)
 
                 # with jitter probability change sign wrt previous angle
-                if uniform() < self.JITTER:
+                if uniform(0.0, 1.0) < self.JITTER:
                     angle *= - np.sign(angles[-1])
                 else:
                     angle *= np.sign(angles[-1])

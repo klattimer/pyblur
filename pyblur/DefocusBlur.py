@@ -1,4 +1,5 @@
 from typing import List
+import random
 import numpy as np
 from PIL import Image
 from scipy.signal import convolve2d
@@ -8,7 +9,7 @@ from skimage.draw import disk
 def DefocusBlur_random(img: Image, 
                        defocusKernelDims: List[int] = [x for x in range(9, 15, 2)], 
                        **kwargs) -> Image:
-    kernelidx = np.random.randint(0, len(defocusKernelDims))
+    kernelidx = random.randint(0, len(defocusKernelDims))
     kerneldim = defocusKernelDims[kernelidx]
     return DefocusBlur(img, kerneldim)
 

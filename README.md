@@ -32,8 +32,6 @@ blurred.save("test.jpg")
 <details>
   <summary>Click here to view example</summary>
 
-
-
 | High Quality |
 | :---: |
 | ![](./assets/test256.png) |

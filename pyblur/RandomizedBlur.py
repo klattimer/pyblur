@@ -1,3 +1,4 @@
+from typing import Union
 import random
 from .BoxBlur import BoxBlur_random
 from .DefocusBlur import  DefocusBlur_random
@@ -53,12 +54,13 @@ blurFunctions = {
 }
 
 
-def RandomizedBlur(img):
+def RandomizedBlur(img, seed: Union[None, int] = None):
+    if seed is not None:
+        random.seed(seed)
     random_func = list(blurFunctions.keys())
     random_weights = [blurFunctions[x]["prob"] for x in blurFunctions.keys()]
     selected_func = random.choices(random_func, weights=random_weights, k=1)[0]
     blurToApply = blurFunctions[str(selected_func)]
     blurFunc = blurToApply["func"]
     kwargs = blurToApply["kwargs"]
-    print(blurFunc)
     return blurFunc(img, **kwargs)

@@ -1,4 +1,5 @@
 from typing import List
+import random
 import numpy as np
 from PIL import Image
 from scipy.signal import convolve2d
@@ -7,7 +8,7 @@ from scipy.signal import convolve2d
 def BoxBlur_random(img: Image, 
                    boxKernelDims: List[int] = [x for x in range(7, 13, 2)], 
                    **kwargs) -> Image:
-    kernelidx = np.random.randint(0, len(boxKernelDims))    
+    kernelidx = random.randint(0, len(boxKernelDims))    
     kerneldim = boxKernelDims[kernelidx]
     return BoxBlur(img, kerneldim)
 
