@@ -19,7 +19,7 @@ def StochasticMotionBlur_random(img: Image,
     assert intensity_min <= intensity_max, f'[ERROR] "intensity_min" must be below "intensity_max"'
     intensity = random.uniform(intensity_min, intensity_max)
     kernelidx = random.randint(0, len(stochasticMotionBlurKernelDims))
-    kerneldim = stochasticMotionBlurKernelDims[kernelidx]
+    kerneldim = random.choice(stochasticMotionBlurKernelDims)
     return StochasticMotionBlur(img, kerneldim, intensity)
     
 

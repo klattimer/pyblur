@@ -8,8 +8,7 @@ from scipy.signal import convolve2d
 def BoxBlur_random(img: Image, 
                    boxKernelDims: List[int] = [x for x in range(7, 13, 2)], 
                    **kwargs) -> Image:
-    kernelidx = random.randint(0, len(boxKernelDims))    
-    kerneldim = boxKernelDims[kernelidx]
+    kerneldim = random.choice(boxKernelDims)
     return BoxBlur(img, kerneldim)
 
 

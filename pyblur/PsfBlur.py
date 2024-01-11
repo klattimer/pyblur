@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+import random
 import numpy as np
 import pickle
 from PIL import Image
@@ -12,7 +13,7 @@ with open(pickledPsfFilename, 'rb') as pklfile:
 
 
 def PsfBlur_random(img: Image, **kwargs) -> Image:
-    psfid = np.random.randint(0, len(psfDictionary))
+    psfid = random.randint(0, len(psfDictionary) - 1)
     return PsfBlur(img, psfid)
     
 

@@ -9,8 +9,7 @@ from skimage.draw import disk
 def DefocusBlur_random(img: Image, 
                        defocusKernelDims: List[int] = [x for x in range(9, 15, 2)], 
                        **kwargs) -> Image:
-    kernelidx = random.randint(0, len(defocusKernelDims))
-    kerneldim = defocusKernelDims[kernelidx]
+    kerneldim = random.choice(defocusKernelDims)
     return DefocusBlur(img, kerneldim)
 
 

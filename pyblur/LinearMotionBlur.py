@@ -13,10 +13,8 @@ def LinearMotionBlur_random(img: Image,
                             lineLengths: List[int] = [x for x in range(9, 25, 2)], 
                             lineTypes: List[str] = ["full", "right", "left"], 
                             **kwargs) -> Image:
-    lineLengthIdx = random.randint(0, len(lineLengths))
-    lineTypeIdx = random.randint(0, len(lineTypes)) 
-    lineLength = lineLengths[lineLengthIdx]
-    lineType = lineTypes[lineTypeIdx]
+    lineLength = random.choice(lineLengths)
+    lineType = random.choice(lineTypes)
     lineAngle = randomAngle(lineLength)
     return LinearMotionBlur(img, lineLength, lineAngle, lineType, lineLengths)
 
