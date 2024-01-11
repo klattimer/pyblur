@@ -65,6 +65,6 @@ def nearestValue(theta: int, validAngles: np.ndarray) -> float:
 def randomAngle(kerneldim: int) -> int:
     kernelCenter = int(math.floor(kerneldim/2))
     numDistinctLines = kernelCenter * 4
-    validLineAngles = np.linspace(0,180, numDistinctLines, endpoint = False)
-    angleIdx = random.randint(0, len(validLineAngles))
-    return int(validLineAngles[angleIdx])
+    validLineAngles = np.linspace(0, 180, numDistinctLines, endpoint = False)
+    angle = random.choice(validLineAngles)
+    return int(angle)
