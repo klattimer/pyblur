@@ -9,7 +9,7 @@ from .PsfBlur import PsfBlur_random
 from .StochasticMotionBlur import StochasticMotionBlur_random
 
 
-DEFAULT_BLUR_FUNCTION = {
+DEFAULT_BLUR_FUNCTIONS = {
     "BoxBlur": {
         "func": BoxBlur_random,
         "prob": 1,
@@ -55,7 +55,7 @@ DEFAULT_BLUR_FUNCTION = {
     },
 }
 
-def RandomizedBlur(img: Image, blurFunctions: dict = DEFAULT_BLUR_FUNCTION, seed: Union[None, int] = None) -> Image:
+def RandomizedBlur(img: Image, blurFunctions: dict = DEFAULT_BLUR_FUNCTIONS, seed: Union[None, int] = None) -> Image:
     if seed is not None:
         random.seed(seed)
     random_func = list(blurFunctions.keys())

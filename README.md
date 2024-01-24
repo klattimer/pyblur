@@ -31,9 +31,9 @@ or you can modify DEFAULT_BLUR_FUNCTIONS to randomize with your own config
 
 ``` python
 from PIL import Image
-from pyblur import RandomizedBlur, DEFAULT_BLUR_FUNCTION
+from pyblur import RandomizedBlur, DEFAULT_BLUR_FUNCTIONS
 
-blurFunctions = DEFAULT_BLUR_FUNCTION.copy()
+blurFunctions = DEFAULT_BLUR_FUNCTIONS.copy()
 blurFunctions["StochasticMotionBlur"]["intensity_min"] = 0.2
 
 img = Image.open("test.jpg").convert("RGB")
@@ -41,7 +41,7 @@ blurred = RandomizedBlur(img, blurFunctions)
 blurred.save("test.jpg")
 ```
 
-Using `print(DEFAULT_BLUR_FUNCTION)` to see more config
+Using `print(DEFAULT_BLUR_FUNCTIONS)` to see more config
 
 ## Example
 
