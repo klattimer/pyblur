@@ -33,6 +33,7 @@ or you can modify DEFAULT_BLUR_FUNCTIONS to randomize with your own config
 from PIL import Image
 from pyblur import RandomizedBlur, DEFAULT_BLUR_FUNCTIONS
 
+# print(DEFAULT_BLUR_FUNCTIONS) # Using if you want to see more config
 blurFunctions = DEFAULT_BLUR_FUNCTIONS.copy()
 blurFunctions["StochasticMotionBlur"]["intensity_min"] = 0.2
 
@@ -41,7 +42,58 @@ blurred = RandomizedBlur(img, blurFunctions)
 blurred.save("test.jpg")
 ```
 
-Using `print(DEFAULT_BLUR_FUNCTIONS)` to see more config
+<details>
+  <summary>Click here to view default config</summary>
+
+``` python
+DEFAULT_BLUR_FUNCTIONS = {
+    "BoxBlur": {
+        "func": BoxBlur_random,
+        "prob": 1,
+        "kwargs": {
+            "boxKernelDims": [x for x in range(9, 15, 2)]
+        }
+    },
+    "DefocusBlur": {
+        "func": DefocusBlur_random,
+        "prob": 1,
+        "kwargs": {
+            "defocusKernelDims": [x for x in range(9, 15, 2)]
+        } 
+    },
+    "GaussianBlur": {
+        "func": GaussianBlur_random,
+        "prob": 1,
+        "kwargs": {
+            "gaussianbandwidths": [x / 2.0 for x in range(3, 11)]
+        }
+    },
+    "LinearMotionBlur": {
+        "func": LinearMotionBlur_random,
+        "prob": 1,
+        "kwargs": {
+            "lineLengths": [x for x in range(9, 15, 2)],
+            "lineTypes": ["full", "right", "left"]
+        }
+    },
+    "PsfBlur": {
+        "func": PsfBlur_random,
+        "prob": 1,
+        "kwargs": {}
+    },
+    "StochasticMotionBlur": {
+        "func": StochasticMotionBlur_random,
+        "prob": 3,
+        "kwargs": {
+            "stochasticMotionBlurKernelDims": [x for x in range(25, 35, 2)],
+            "intensity_min": 0.0, # a float number in range [0.0, 1.0]
+            "intensity_max": 1.0  # a float number in range [0.0, 1.0]
+        }
+    },
+}
+```
+
+</details>
 
 ## Example
 
