@@ -16,7 +16,7 @@ pip install -e pyblur
 ## Usage
 
 ### Random Blur
-Randomly applies one of the supported blur types, with a randomized bandwidth/strenght.
+Randomly applies one of the supported blur types, with a randomized bandwidth/strengh.
 
 ``` python
 from PIL import Image
@@ -26,6 +26,22 @@ img = Image.open("test.jpg").convert("RGB")
 blurred = RandomizedBlur(img)
 blurred.save("test.jpg")
 ```
+
+or you can modify DEFAULT_BLUR_FUNCTIONS to randomize with your own config
+
+``` python
+from PIL import Image
+from pyblur import RandomizedBlur, DEFAULT_BLUR_FUNCTION
+
+blurFunctions = DEFAULT_BLUR_FUNCTION.copy()
+blurFunctions["StochasticMotionBlur"]["intensity_min"] = 0.2
+
+img = Image.open("test.jpg").convert("RGB")
+blurred = RandomizedBlur(img, blurFunctions)
+blurred.save("test.jpg")
+```
+
+Using `print(DEFAULT_BLUR_FUNCTION)` to see more config
 
 ## Example
 

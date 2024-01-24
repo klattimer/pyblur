@@ -1,5 +1,6 @@
 from typing import Union
 import random
+from PIL import Image
 from .BoxBlur import BoxBlur_random
 from .DefocusBlur import  DefocusBlur_random
 from .GaussianBlur import GaussianBlur_random
@@ -7,29 +8,30 @@ from .LinearMotionBlur import LinearMotionBlur_random
 from .PsfBlur import PsfBlur_random
 from .StochasticMotionBlur import StochasticMotionBlur_random
 
-blurFunctions = {
-    "0": {
+
+DEFAULT_BLUR_FUNCTION = {
+    "BoxBlur": {
         "func": BoxBlur_random,
         "prob": 1,
         "kwargs": {
             "boxKernelDims": [x for x in range(9, 15, 2)]
         }
     },
-    "1": {
+    "DefocusBlur": {
         "func": DefocusBlur_random,
         "prob": 1,
         "kwargs": {
             "defocusKernelDims": [x for x in range(9, 15, 2)]
         } 
     },
-    "2": {
+    "GaussianBlur": {
         "func": GaussianBlur_random,
         "prob": 1,
         "kwargs": {
             "gaussianbandwidths": [x / 2.0 for x in range(3, 11)]
         }
     },
-    "3": {
+    "LinearMotionBlur": {
         "func": LinearMotionBlur_random,
         "prob": 1,
         "kwargs": {
@@ -37,12 +39,12 @@ blurFunctions = {
             "lineTypes": ["full", "right", "left"]
         }
     },
-    "4": {
+    "PsfBlur": {
         "func": PsfBlur_random,
         "prob": 1,
         "kwargs": {}
     },
-    "5": {
+    "StochasticMotionBlur": {
         "func": StochasticMotionBlur_random,
         "prob": 3,
         "kwargs": {
@@ -53,8 +55,7 @@ blurFunctions = {
     },
 }
 
-
-def RandomizedBlur(img, seed: Union[None, int] = None):
+def RandomizedBlur(img: Image, blurFunctions: dict = DEFAULT_BLUR_FUNCTION, seed: Union[None, int] = None) -> Image:
     if seed is not None:
         random.seed(seed)
     random_func = list(blurFunctions.keys())
