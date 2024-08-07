@@ -21,8 +21,15 @@ def PsfBlur(img: Image, psfid: int) -> Image:
     imgarray = np.array(img, dtype="float32")
     kernel = psfDictionary[psfid]
     convolved = np.zeros_like(imgarray, dtype = np.uint8)
-    for i in range(3):
-        convolved[:, :, i] = convolve2d(imgarray[:, :, i], kernel, mode='same', fillvalue=255.0).astype("uint8")
+
+    if convolved.ndim == 2:
+        convolved[:, :] = convolve2d(imgarray[:, :], kernel, mode='same', fillvalue=255.0).astype("uint8")
+    elif convolved.ndim == 3:    
+        for i in range(convolved.shape[2]):
+            convolved[:, :, i] = convolve2d(imgarray[:, :, i], kernel, mode='same', fillvalue=255.0).astype("uint8")
+    else:
+        raise NotImplementedError
+
     img = Image.fromarray(convolved)
     return img
     
