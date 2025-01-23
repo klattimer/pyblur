@@ -3,13 +3,23 @@ import random
 import numpy as np
 from PIL import Image
 from scipy.signal import convolve2d
+<<<<<<< HEAD
 from skimage.draw import disk
+=======
+from skimage.draw import ellipse as circle
+>>>>>>> 7fbb224 (fix import issue)
 
 
+<<<<<<< HEAD
 def DefocusBlur_random(img: Image, 
                        defocusKernelDims: List[int] = [x for x in range(9, 15, 2)], 
                        **kwargs) -> Image:
     kerneldim = random.choice(defocusKernelDims)
+=======
+def DefocusBlur_random(img):
+    kernelidx = np.random.randint(0, len(defocusKernelDims))
+    kerneldim = defocusKernelDims[kernelidx]
+>>>>>>> 7fbb224 (fix import issue)
     return DefocusBlur(img, kerneldim)
 
 
@@ -34,14 +44,20 @@ def DiskKernel(dim: int) -> np.ndarray:
     kernelwidth = dim
     kernel = np.zeros((kernelwidth, kernelwidth), dtype=np.float32)
     circleCenterCoord = dim / 2
+<<<<<<< HEAD
     circleRadius = circleCenterCoord# +1
     
     rr, cc = disk((circleCenterCoord, circleCenterCoord), circleRadius)
+=======
+    circleRadius = circleCenterCoord +1
+
+    rr, cc = circle(circleCenterCoord, circleCenterCoord, circleRadius)
+>>>>>>> 7fbb224 (fix import issue)
     kernel[rr,cc]=1
-    
+
     if(dim == 3 or dim == 5):
         kernel = Adjust(kernel, dim)
-        
+
     normalizationFactor = np.count_nonzero(kernel)
     kernel = kernel / normalizationFactor
     return kernel
@@ -51,5 +67,5 @@ def Adjust(kernel: np.ndarray, kernelwidth: int) -> np.ndarray:
     kernel[0,0] = 0
     kernel[0,kernelwidth-1]=0
     kernel[kernelwidth-1,0]=0
-    kernel[kernelwidth-1, kernelwidth-1] =0 
+    kernel[kernelwidth-1, kernelwidth-1] =0
     return kernel
